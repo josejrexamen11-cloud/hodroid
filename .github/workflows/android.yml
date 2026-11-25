@@ -150,8 +150,8 @@ jobs:
           done
       - uses: actions/upload-artifact@v4
         with:
-          name: starling-apk-${{ matrix.abi }}
-          path: target/android/starling-*.apk
+          name: hodroid-apk-${{ matrix.abi }}
+          path: target/android/hodroid-*.apk
           if-no-files-found: error
           # A test build with the release key installs over a release: anyone may download a public
           # repository's artifacts, so it goes after a day.
@@ -188,7 +188,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          pattern: starling-apk-*
+          pattern: hodroid-apk-*
           path: target/android
           merge-multiple: true
       - name: Check all release APKs and build shared visuals
@@ -201,7 +201,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" target/android/starling-*.apk \
+          gh release create "$GITHUB_REF_NAME" target/android/hodroid-*.apk \
             target/android/StarlingVisuals.zip \
             --title "Starling $GITHUB_REF_NAME" --notes-file packaging/android/release-notes.md \
             --latest
